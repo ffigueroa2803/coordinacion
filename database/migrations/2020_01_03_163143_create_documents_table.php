@@ -18,13 +18,14 @@ class CreateDocumentsTable extends Migration
             $table->string('numero_documento',4);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('type_requests_id');
-            $table->foreign('type_requests_id')->references('id')->on('type_requests');
-            $table->unsignedBigInteger('type_documents_id');
-            $table->foreign('type_documents_id')->references('id')->on('type_documents');
+            $table->unsignedBigInteger('type_request_id');
+            $table->foreign('type_request_id')->references('id')->on('type_requests');
+            $table->unsignedBigInteger('type_document_id');
+            $table->foreign('type_document_id')->references('id')->on('type_documents');
             $table->string('codigo_universitario',10);
             $table->string('numero_recibo',10);
             $table->double('monto', 8, 2);
+            $table->tinyInteger('estado', 1)->default(0);
             $table->timestamps();
         });
     }

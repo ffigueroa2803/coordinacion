@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Document;
+use App\Tools\Filters;
 
 class DocumentController extends Controller
 {
@@ -13,18 +15,21 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        // obtener posibles filtros
+        $filters = new Filters(request()->only('numero_documento', 'codigo_universitario', 'numero_recibo'));
+        // obtener filtro de paginador
+        $page = request()->input('page', null);
+        // obtener documentos
+        $documents = Document::query();
+        // aplicar filtros
+        $documents = $filters->where($documents);
+        return $documents->get();
+        // verificar si hay paginación antes de responder al cliente
+        return $page 
+            ? $documents->paginate(30)
+            : $documents->get();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -48,16 +53,6 @@ class DocumentController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Document  $document
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Document $document)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
