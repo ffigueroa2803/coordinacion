@@ -20,7 +20,7 @@ class CreateDocumentsTable extends Migration
             $table->unsignedBigInteger('type_request_id');
             $table->foreign('type_request_id')->references('id')->on('type_requests');
             $table->string('numero_documento',4);
-            $table->string('codigo_universitario',10);
+            $table->string('cod_alumno',10);
             $table->string('numero_recibo',10);
             $table->double('monto', 8, 2);
             $table->tinyInteger('estado')->default('0');

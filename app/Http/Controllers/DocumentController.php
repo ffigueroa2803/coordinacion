@@ -16,7 +16,7 @@ class DocumentController extends Controller
     public function index()
     {
         // obtener posibles filtros
-        $filters = new Filters(request()->only('numero_documento', 'codigo_universitario', 'numero_recibo'));
+        $filters = new Filters(request()->only('numero_documento', 'cod_alumno', 'numero_recibo'));
         // obtener filtro de paginador
         $page = request()->input('page', null);
         // obtener documentos
