@@ -20,5 +20,7 @@ Route::group(['prefix' => "v1"], function() {
     Route::post("/logout", "AuthController@logout");
     // obtener usuario authenticado
     Route::get("/me", "AuthController@me");
+    // obtener perfiles
+    Route::get('/profile', 'AuthController@profile');
 
 });

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Tools\Bearer;
 
 class User extends Authenticatable
 {
@@ -40,6 +41,24 @@ class User extends Authenticatable
 
     public function tokens() {
         return $this->hasMany(Token::class);
+    }
+
+
+    public function session() {
+        return $this->hasOne(Token::class);
+    }
+
+
+    public function scopeAuth($query) {
+        return $query->with([
+            'session' => function($tok) {
+                $tok->where("token", Bearer::getToken())
+                    ->where("is_revoked", 0);
+            }
+        ])->whereHas('tokens', function($tok) {
+            $tok->where("token", Bearer::getToken())
+                ->where("is_revoked", 0);
+        });
     }
 
     

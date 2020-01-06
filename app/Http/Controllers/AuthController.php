@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Token;
 use App\Tools\Bearer;
@@ -83,6 +84,29 @@ class AuthController extends Model
                 "user" => null
             ];
         }
+    }
+
+
+
+    public function profile()
+    {
+        if (User::auth()->first()) {
+            return collect([ 
+                [
+                    "id" => 1,
+                    "name" => "Registros Académicos", 
+                    "icono" => "fas fa-file-alt", 
+                    "modulos" => collect([
+                        [
+                            "name" => "Constancias e Informes",
+                            "slug" => "documento"
+                        ]
+                    ])
+                ]
+            ]);
+        }
+
+        return [];
     }
 
 }
