@@ -14,4 +14,11 @@ Route::group(['prefix' => "v1"], function() {
     Route::resource('type_document', 'TypeDocumentController');
     Route::resource('type_request', 'TypeRequestController');
 
+    // authenticacion
+    Route::get("/login", "AuthController@login");
+    // cerrar sesión
+    Route::get("/logout", "AuthController@logout");
+    // obtener usuario authenticado
+    Route::get("/me", "AuthController@me");
+
 });

@@ -18,7 +18,7 @@ class CreateModulosTable extends Migration
             $table->string('slug');
             $table->string('descripcion');
             $table->bigInteger('modulo_id');
-            $table->tinyInteger("estado", 1)->default(0);
+            $table->integer("estado")->default(1);
             $table->timestamps();
         });
     }

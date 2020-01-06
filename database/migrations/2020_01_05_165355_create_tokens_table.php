@@ -17,7 +17,9 @@ class CreateTokensTable extends Migration
             $table->bigIncrements('id');
             $table->string('token')->unique();
             $table->string('type');
-            $table->tinyInteger('is_revoked', 0);
+            $table->integer('is_revoked')->default(0);
+            $table->bigInteger('user_id');
+            $table->string('user_agent');
             $table->timestamps();
         });
     }
