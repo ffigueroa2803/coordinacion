@@ -15,8 +15,10 @@ class CreateTypeRequestsTable extends Migration
     {
         Schema::create('type_requests', function (Blueprint $table) {
             $table->bigIncrements('id');
+             $table->unsignedBigInteger('type_document_id');
+            $table->foreign('type_document_id')->references('id')->on('type_documents');
             $table->string('descripcion',250);
-            $table->string('estado',1);
+            $table->tinyInteger('estado')->default('1');
             $table->timestamps();
         });
     }
