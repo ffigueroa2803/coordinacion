@@ -15,9 +15,9 @@ Route::group(['prefix' => "v1"], function() {
     Route::resource('type_request', 'TypeRequestController');
 
     // authenticacion
-    Route::get("/login", "AuthController@login");
+    Route::post("/login", "AuthController@login");
     // cerrar sesión
-    Route::get("/logout", "AuthController@logout");
+    Route::post("/logout", "AuthController@logout");
     // obtener usuario authenticado
     Route::get("/me", "AuthController@me");
 

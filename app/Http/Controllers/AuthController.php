@@ -10,11 +10,10 @@ use App\Tools\Bearer;
 class AuthController extends Model
 {
 
-    public function login() 
+    public function login(Request $request) 
     {
         try {
 
-            $request = request();
             $user = User::where("email", $request->email)->firstOrFail();
 
             if (\Hash::check($request->password, $user->password)) {
@@ -46,9 +45,24 @@ class AuthController extends Model
     }
 
 
-    public function logout()
+    public function logout(Request $request)
     {
+        try {
+            $token = Bearer::getToken();
 
+            $newToken = Token::where('token', $token)->where("is_revoked", 0)->firstOrFail();
+            $newToken->update([ "is_revoked" => 1 ]);
+            // response
+            return [
+                "success" => true,
+                "message" => "La sesión se cerró correctamente!"
+            ];
+        } catch (\Throwable $th) {
+            return [
+                "success" => false,
+                "message" => "No se pudó cerrar la sesión!"
+            ];
+        }
     }
 
 
